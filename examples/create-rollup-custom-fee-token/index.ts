@@ -147,7 +147,7 @@ async function main() {
   console.log("rm -rf ~/.arbitrum");
   console.log("mkdir -p ~/.arbitrum/IMX/nitro/l2chaindata");
   console.log("cp -r ~/Documents/GitHub/go-ethereum-imx/imxdir/devnet/chain-15003/validator-0/geth/chaindata/* ~/.arbitrum/IMX/nitro/l2chaindata");
-  console.log(`IMX_BOOTSTRAP=${genBlk} ./target/bin/nitro --conf.file ../arbitrum-orbit-sdk/examples/create-rollup-custom-fee-token/nodeConfig.json`);
+  console.log(`GEN_BLK=${genBlk} ./target/bin/nitro --conf.file ../arbitrum-orbit-sdk/examples/create-rollup-custom-fee-token/nodeConfig.json`);
   console.log("===========================");
 
   console.log("Configure chain with ./orbitSetupScriptConfig.json");
