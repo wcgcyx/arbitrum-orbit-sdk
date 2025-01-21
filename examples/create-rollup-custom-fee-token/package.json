@@ -5,10 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "tsc --outDir dist && node ./dist/index.js",
+    "setup": "tsc --outDir dist && node ./dist/setup.js",
     "dev:low-level": "tsc --outDir dist && node ./dist/low_level.js"
   },
   "devDependencies": {
     "@types/node": "^20.9.0",
     "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@arbitrum/orbit-sdk": "^0.21.3"
   }
 }

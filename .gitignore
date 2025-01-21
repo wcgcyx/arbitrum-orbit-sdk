@@ -128,3 +128,6 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+examples/create-rollup-custom-fee-token/nodeConfig.json
+examples/create-rollup-custom-fee-token/orbitSetupScriptConfig.json
