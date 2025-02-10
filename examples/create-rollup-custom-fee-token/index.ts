@@ -15,13 +15,13 @@ import { sanitizePrivateKey } from '@arbitrum/orbit-sdk/utils';
 config();
 
 // Local sepolia fork.
-const PARENT_CHAIN_RPC = "http://localhost:8544/";
+const PARENT_CHAIN_RPC = process.env.PARENT_CHAIN_RPC;
 
 // IMX on Sepolia.
 const CUSTOM_FEE_TOKEN_ADDRESS = "0xe2629e08f4125d14e446660028bD98ee60EE69F2";
 
 // This is the main test account that holds 10,000 IMX, address is 0xd1B7c2EB5f498877edeE27339903BD12f01Fa35b.
-// Note: Run `cast send --rpc-url http://localhost:8544 --private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 0xd1B7c2EB5f498877edeE27339903BD12f01Fa35b --value 100ether`
+// Note: Run `cast send --rpc-url $PARENT_CHAIN_RPC --private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 0xd1B7c2EB5f498877edeE27339903BD12f01Fa35b --value 100ether`
 const DEPLOYER_PRIVATE_KEY = process.env.DEPLOYER_PRIVATE_KEY;
 
 // Batcher, anvil default account: 0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266.
@@ -69,8 +69,8 @@ async function main() {
     address: deployer.address,
   });
   if (bal === hexToBigInt("0x0")) {
-    console.log("deployer not funded, run `cast send --rpc-url http://localhost:8544 --private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 0xd1B7c2EB5f498877edeE27339903BD12f01Fa35b --value 100ether`");
-    exec('cast send --rpc-url http://localhost:8544 --private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 0xd1B7c2EB5f498877edeE27339903BD12f01Fa35b --value 100ether', (err, stdout, stderr) => {
+    console.log("deployer not funded, run `cast send --rpc-url $PARENT_CHAIN_RPC --private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 0xd1B7c2EB5f498877edeE27339903BD12f01Fa35b --value 100ether`");
+    exec(`cast send --rpc-url ${PARENT_CHAIN_RPC} --private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 0xd1B7c2EB5f498877edeE27339903BD12f01Fa35b --value 100ether`, (err, stdout, stderr) => {
       if (err) {
         exit(1)
         return;
@@ -132,7 +132,7 @@ async function main() {
   console.log(`export SEQUENCER_INBOX_ADDRESS=${res.coreContracts.sequencerInbox}`);
   console.log("rm -rf ./testdir/data");
   console.log("mkdir ./testdir/data");
-  console.log("./target/bin/daserver --data-availability.parent-chain-node-url http://localhost:8544/ --enable-rpc --rpc-addr '0.0.0.0' --enable-rest --rest-addr '0.0.0.0' --log-level 3 --data-availability.local-file-storage.enable --data-availability.local-file-storage.data-dir ./testdir/data --data-availability.key.key-dir ./testdir/keys --data-availability.local-cache.enable --data-availability.sequencer-inbox-address $SEQUENCER_INBOX_ADDRESS")
+  console.log(`./target/bin/daserver --data-availability.parent-chain-node-url ${PARENT_CHAIN_RPC} --enable-rpc --rpc-addr '0.0.0.0' --enable-rest --rest-addr '0.0.0.0' --log-level 3 --data-availability.local-file-storage.enable --data-availability.local-file-storage.data-dir ./testdir/data --data-availability.key.key-dir ./testdir/keys --data-availability.local-cache.enable --data-availability.sequencer-inbox-address $SEQUENCER_INBOX_ADDRESS`)
   console.log("===========================");
 
   console.log("Start nitro with ./nodeConfig.json: ");
@@ -161,7 +161,7 @@ async function main() {
     "chainName": "IMX",
     "minL2BaseFee": 100000000,
     "parentChainId": 11155111,
-    "parent-chain-node-url": "http://localhost:8544",
+    "parent-chain-node-url": PARENT_CHAIN_RPC,
     "rollup": res.coreContracts.rollup,
     "inbox": res.coreContracts.inbox,
     "nativeToken": res.coreContracts.nativeToken,
@@ -180,7 +180,7 @@ async function main() {
   console.log("===========================");
   console.log("rm -rf ./config/orbitSetupScriptConfig.json ./config/resumeState.json");
   console.log("cp ../arbitrum-orbit-sdk/examples/create-rollup-custom-fee-token/orbitSetupScriptConfig.json ./config/");
-  console.log(`PRIVATE_KEY=${DEPLOYER_PRIVATE_KEY} L2_RPC_URL="http://localhost:8544" L3_RPC_URL="http://localhost:8449" yarn run setup`);
+  console.log(`PRIVATE_KEY=${DEPLOYER_PRIVATE_KEY} L2_RPC_URL="${PARENT_CHAIN_RPC}" L3_RPC_URL="http://localhost:8449" yarn run setup`);
   console.log("===========================");
 
   console.log("After script failed, continue from here with command below.")
