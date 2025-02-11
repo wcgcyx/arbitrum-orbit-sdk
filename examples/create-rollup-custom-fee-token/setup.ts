@@ -15,10 +15,10 @@ import { sanitizePrivateKey } from '@arbitrum/orbit-sdk/utils';
 config();
 
 // Local sepolia fork.
-const PARENT_CHAIN_RPC = "http://localhost:8544/";
+const PARENT_CHAIN_RPC = "http://sepolia-fork:8544";
 
 // This is the main test account that holds 10,000 IMX, address is 0xd1B7c2EB5f498877edeE27339903BD12f01Fa35b.
-// Note: Run `cast send --rpc-url http://localhost:8544 --private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 0xd1B7c2EB5f498877edeE27339903BD12f01Fa35b --value 100ether`
+// Note: Run `cast send --rpc-url http://sepolia-fork:8544 --private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 0xd1B7c2EB5f498877edeE27339903BD12f01Fa35b --value 100ether`
 const DEPLOYER_PRIVATE_KEY = process.env.DEPLOYER_PRIVATE_KEY;
 
 function stringToPrivateKey(privateKey: string | undefined): `0x${string}` {
@@ -46,10 +46,10 @@ async function main() {
     nativeCurrency: { name: 'Immutable', symbol: 'IMX', decimals: 18 },
     rpcUrls: {
       default: {
-        http: ["http://localhost:8449"],
+        http: ["http://nitro-node:8449"],
       },
       public: {
-        http: ["http://localhost:8449"],
+        http: ["http://nitro-node:8449"],
       },
     },
     testnet: true,
