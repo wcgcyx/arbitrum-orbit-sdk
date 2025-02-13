@@ -143,6 +143,11 @@ async function main() {
   nodeConfig.chain['info-json'] = infoJson;
   nodeConfig.node['data-availability']['sequencer-inbox-address'] = res.coreContracts.sequencerInbox;
   fs.writeFileSync('nodeConfig.json', JSON.stringify(nodeConfig));
+  // Save a duplicate to use after migration
+  nodeConfig = JSON.parse(fs.readFileSync('nodeConfig2.example.json', 'utf-8'));
+  nodeConfig.chain['info-json'] = infoJson;
+  nodeConfig.node['data-availability']['sequencer-inbox-address'] = res.coreContracts.sequencerInbox;
+  fs.writeFileSync('nodeConfig2.json', JSON.stringify(nodeConfig));
   console.log("===========================");
   console.log("rm -rf ~/.arbitrum");
   console.log("mkdir -p ~/.arbitrum/IMX/nitro/l2chaindata");

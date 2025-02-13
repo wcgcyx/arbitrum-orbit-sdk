@@ -1,0 +1,81 @@
+{
+  "chain": {
+      "info-json": "",
+      "name": "IMX"
+  },
+  "parent-chain": {
+    "connection": {
+      "url": "http://sepolia-fork:8544"
+    }
+  },
+  "http": {
+    "addr": "0.0.0.0",
+    "port": 8449,
+    "vhosts": [
+      "*"
+    ],
+    "corsdomain": [
+      "*"
+    ],
+    "api": [
+      "eth",
+      "net",
+      "web3",
+      "arb",
+      "debug"
+    ]
+  },
+  "node": {
+    "sequencer": true,
+    "delayed-sequencer": {
+      "enable": true,
+      "use-merge-finality": false,
+      "finalize-distance": 1
+    },
+    "batch-poster": {
+      "max-size": 90000,
+      "enable": true,
+      "parent-chain-wallet": {
+        "private-key": "ac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80"
+      }
+    },
+    "staker": {
+      "enable": true,
+      "strategy": "MakeNodes",
+      "parent-chain-wallet": {
+        "private-key": "59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d"
+      }
+    },
+    "dangerous": {
+      "no-sequencer-coordinator": true,
+      "disable-blob-reader": true
+    },
+    "data-availability": {
+      "enable": true,
+      "sequencer-inbox-address": "",
+      "parent-chain-node-url": "http://sepolia-fork:8544",
+      "rest-aggregator": {
+        "enable": true,
+        "urls": [
+          "http://nitro-das:9877"
+        ]
+      },
+      "rpc-aggregator": {
+        "enable": true,
+        "assumed-honest": 1,
+        "backends": "[{\"url\":\"http://nitro-das:9876\",\"pubkey\":\"YAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==\",\"signermask\":1}]"
+      }
+    }
+  },
+  "execution": {
+    "forwarding-target": "",
+    "sequencer": {
+      "enable": true,
+      "max-tx-data-size": 85000,
+      "max-block-speed": "250ms"
+    },
+    "caching": {
+      "archive": true
+    }
+  }
+}
