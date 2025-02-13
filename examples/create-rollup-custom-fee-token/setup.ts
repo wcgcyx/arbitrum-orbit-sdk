@@ -46,10 +46,10 @@ async function main() {
     nativeCurrency: { name: 'Immutable', symbol: 'IMX', decimals: 18 },
     rpcUrls: {
       default: {
-        http: ["http://nitro-node:8449"],
+        http: ["http://nitro-bootstrap:8449"],
       },
       public: {
-        http: ["http://nitro-node:8449"],
+        http: ["http://nitro-bootstrap:8449"],
       },
     },
     testnet: true,
